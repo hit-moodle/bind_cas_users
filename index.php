@@ -10,16 +10,18 @@
     $casauth = get_auth_plugin('cas');
     $emailauth = get_auth_plugin('email');
 
-    print_header('绑定CAS和本站帐号');
     // Auth with cas
     if (empty($remoteusername)) {
         $casauth->connectCAS();
         phpCAS::setNoCasServerValidation();
         phpCAS::checkAuthentication();
 		if (!phpCAS::isAuthenticated())
-            die('CAS认证失败');
+            phpCAS::forceAuthentication();
         $remoteusername = trim(moodle_strtolower(phpCAS::getUser()));
+        if (empty($remoteusername))
+            die('CAS认证失败');
     }
+    print_header('绑定CAS和本站帐号');
 
     echo '<p>您的CAS用户名是'.$remoteusername.'</p>';
 
