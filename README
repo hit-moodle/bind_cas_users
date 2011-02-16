@@ -1,0 +1,6 @@
+Bind CAS user with old local user.
+
+User should login through CAS, submit local username and password. 
+The two users will be merged into one. After that, user can login
+through CAS and keep all old settings (courses, posts, submission 
+and etc.)
