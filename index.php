@@ -43,6 +43,7 @@
     // Confirm
     $user = get_complete_user_data('username', $localusername);
     echo '<p>您在本地的信息：</p>';
+    echo "<p>用户名：$localusername</p>";
     $course->id = 1;
     print_user($user, $course);
     if (!$confirmed) {
