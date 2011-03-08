@@ -43,11 +43,11 @@
     }
 
     // Confirm
-    $user = get_complete_user_data('username', $localusername);
+    $localuser = get_complete_user_data('username', $localusername);
     echo '<p>您在本地的信息：</p>';
     echo "<p>用户名：$localusername</p>";
     $course->id = 1;
-    print_user($user, $course);
+    print_user($localuser, $course);
     if (!$confirmed) {
         echo '<p>如果确认以上信息正确，请点击确定按钮。否则，回退或关闭本页。</p>';
         echo '<form method=post>';
@@ -58,9 +58,10 @@
         echo "<input type='submit' value='确定'>";
         echo '</form>';
     } else {  // Update db table
-        $olduser = get_complete_user_data('username', $remoteusername);
         $newuser = new object();
+
         if ($localusername != $remoteusername) {
+            $olduser = get_complete_user_data('username', $remoteusername);
             if ($olduser) {
                 // Already have a local user with the same username
                 if ($olduser->auth == 'cas') {
@@ -68,15 +69,10 @@
                 } else {
                     die('<p>发现用户名冲突，暂时不能绑定帐号。请将此页信息全文拷贝，发送给<a href="mailto:sunner@gmail.com">sunner@gmail.com</a>，他会尽力提供帮助</p>');
                 }
-                $newuser->id = $olduser->id;
-            } else {
-                // Use the slot of current local user
-                $newuser->id = $user->id;
             }
-        } else {
-            $newuser->id = $olduser->id;
         }
 
+        $newuser->id = $localuser->id;
         $newuser->username = $remoteusername;
         $newuser->auth = 'cas';
         if (update_record('user', $newuser)) {
