@@ -8,6 +8,9 @@
     // Contact who when meeting problem
     $CONTACT_EMAIL   = 'sunner@gmail.com';
 
+    // Debug mode?
+    $DEBUG = false;
+
     $localusername  = moodle_strtolower(optional_param('lname', '', PARAM_ALPHANUM));
     $localpassword  = optional_param('lpass', '', PARAM_TEXT);
     $remoteusername = moodle_strtolower(optional_param('rname', '', PARAM_ALPHANUM));
@@ -81,6 +84,11 @@
         $newuser->id = $localuser->id;
         $newuser->username = $remoteusername;
         $newuser->auth = 'cas';
+
+        if ($DEBUG) {
+            die('<p>测试通过。</p>');
+        }
+
         if (update_record('user', $newuser)) {
             echo '<p>已成功绑定帐号。以后将只能使用CAS登录。</p>';
         } else {
