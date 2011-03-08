@@ -2,6 +2,8 @@
 
     require_once('../config.php');
 
+    $USERNAME_SUFFIX = '-old';  // A suffix appended to every old local username
+
     $localusername  = moodle_strtolower(optional_param('lname', '', PARAM_ALPHANUM));
     $localpassword  = optional_param('lpass', '', PARAM_TEXT);
     $remoteusername = moodle_strtolower(optional_param('rname', '', PARAM_ALPHANUM));
@@ -28,7 +30,7 @@
     echo '<p>您的CAS用户名是'.$remoteusername.'</p>';
 
     // Auth locally
-    if (!$emailauth->user_login($localusername, $localpassword)) {
+    if (!$emailauth->user_login($localusername.$USERNAME_SUFFIX, $localpassword)) {
         if (!empty($localusername)) {
             echo '<p>您输入的本站用户名或密码错误，请重新输入。</p>';
         }
@@ -43,7 +45,7 @@
     }
 
     // Confirm
-    $localuser = get_complete_user_data('username', $localusername);
+    $localuser = get_complete_user_data('username', $localusername.$USERNAME_SUFFIX);
     echo '<p>您在本地的信息：</p>';
     echo "<p>用户名：$localusername</p>";
     $course->id = 1;
