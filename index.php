@@ -2,7 +2,11 @@
 
     require_once('../config.php');
 
-    $USERNAME_SUFFIX = '-old';  // A suffix appended to every old local username
+    // A suffix appended to every old local username
+    $USERNAME_SUFFIX = '-old';
+
+    // Contact who when meeting problem
+    $CONTACT_EMAIL   = 'sunner@gmail.com';
 
     $localusername  = moodle_strtolower(optional_param('lname', '', PARAM_ALPHANUM));
     $localpassword  = optional_param('lpass', '', PARAM_TEXT);
@@ -69,7 +73,7 @@
                 if ($olduser->auth == 'cas') {
                     die('<p>您已经绑定过帐号，不能再次绑定。</p>');
                 } else {
-                    die('<p>发现用户名冲突，暂时不能绑定帐号。请将此页信息全文拷贝，发送给<a href="mailto:sunner@gmail.com">sunner@gmail.com</a>，他会尽力提供帮助</p>');
+                    die('<p>发现用户名冲突，暂时不能绑定帐号。请将此页信息全文拷贝，发送给<a href="mailto:'.$CONTACT_EMAIL.'">'.$CONTACT_EMAIL.'</a>，他会尽力提供帮助</p>');
                 }
             }
         }
@@ -81,7 +85,7 @@
             echo '<p>已成功绑定帐号。以后将只能使用CAS登录。</p>';
         } else {
             print_object($newuser);
-            die('<p>数据库更新出错。请将此页信息全文拷贝，发送给<a href="mailto:sunner@gmail.com">sunner@gmail.com</a>，他会尽力提供帮助</p>');
+            die('<p>数据库更新出错。请将此页信息全文拷贝，发送给<a href="mailto:'.$CONTACT_EMAIL.'">'.$CONTACT_EMAIL.'</a>，他会尽力提供帮助</p>');
         }
     }
 
