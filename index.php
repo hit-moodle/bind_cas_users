@@ -2,12 +2,12 @@
 
     require_once('../config.php');
 
-    $localusername = moodle_strtolower(optional_param('lname', '', PARAM_ALPHANUM));
-    $localpassword = optional_param('lpass', '', PARAM_TEXT);
+    $localusername  = moodle_strtolower(optional_param('lname', '', PARAM_ALPHANUM));
+    $localpassword  = optional_param('lpass', '', PARAM_TEXT);
     $remoteusername = moodle_strtolower(optional_param('rname', '', PARAM_ALPHANUM));
-    $confirmed = optional_param('confirm', 0, PARAM_BOOL);
+    $confirmed      = optional_param('confirm', 0, PARAM_BOOL);
     
-    $casauth = get_auth_plugin('cas');
+    $casauth   = get_auth_plugin('cas');
     $emailauth = get_auth_plugin('email');
 
     // Auth with cas
@@ -15,12 +15,14 @@
         $casauth->connectCAS();
         phpCAS::setNoCasServerValidation();
         phpCAS::checkAuthentication();
-		if (!phpCAS::isAuthenticated())
+		if (!phpCAS::isAuthenticated()) {
             phpCAS::forceAuthentication();
+        }
         $remoteusername = trim(moodle_strtolower(phpCAS::getUser()));
         if (empty($remoteusername))
             die('CAS认证失败');
     }
+
     print_header('绑定CAS和本站帐号');
 
     echo '<p>您的CAS用户名是'.$remoteusername.'</p>';
@@ -68,11 +70,13 @@
                 }
                 $newuser->id = $olduser->id;
             } else {
+                // Use the slot of current local user
                 $newuser->id = $user->id;
             }
         } else {
             $newuser->id = $olduser->id;
         }
+
         $newuser->username = $remoteusername;
         $newuser->auth = 'cas';
         if (update_record('user', $newuser)) {
