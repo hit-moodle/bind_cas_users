@@ -11,9 +11,9 @@
     // Debug mode?
     $DEBUG = false;
 
-    $localusername  = moodle_strtolower(optional_param('lname', '', PARAM_ALPHANUM));
+    $localusername  = moodle_strtolower(optional_param('lname', '', PARAM_NOTAGS));
     $localpassword  = optional_param('lpass', '', PARAM_TEXT);
-    $remoteusername = moodle_strtolower(optional_param('rname', '', PARAM_ALPHANUM));
+    $remoteusername = moodle_strtolower(optional_param('rname', '', PARAM_NOTAGS));
     $confirmed      = optional_param('confirm', 0, PARAM_BOOL);
     
     $casauth   = get_auth_plugin('cas');
