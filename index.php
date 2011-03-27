@@ -3,10 +3,10 @@
     require_once('../config.php');
 
     // A suffix appended to every old local username
-    $USERNAME_SUFFIX = '-old';
+    $USERNAME_SUFFIX = '.local';
 
     // Contact who when meeting problem
-    $CONTACT_EMAIL   = 'sunner@gmail.com';
+    $CONTACT_EMAIL   = 'hit.moodle@gmail.com';
 
     // Debug mode?
     $DEBUG = false;
@@ -34,14 +34,15 @@
 
     print_header('绑定CAS和本站帐号');
 
-    echo '<p>您的CAS用户名是'.$remoteusername.'</p>';
+    echo '<p>您的统一认证(CAS)用户名是：<strong>'.$remoteusername.'</strong></p>';
+    echo '<p>如果此用户名不正确，请关闭所有浏览器窗口，重新打开此页，再继续。</p>';
 
     // Auth locally
     if (!$emailauth->user_login($localusername.$USERNAME_SUFFIX, $localpassword)) {
         if (!empty($localusername)) {
-            echo '<p>您输入的本站用户名或密码错误，请重新输入。</p>';
+            echo '<p><strong>您输入的本站用户名或密码错误，请重新输入。</strong></p>';
         }
-        echo '<p>请输入用户名和密码</p>';
+        echo '<p>请输入您在<strong>本站</strong>的用户名和密码</p>';
         echo '<form method=post>';
         echo "用户名：<input type='text' name='lname' value='$localusername' />";
         echo "密码：<input type='password' name='lpass' value='$localpassword' />";
