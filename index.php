@@ -42,7 +42,7 @@
         if (!empty($localusername)) {
             echo '<p><strong>您输入的本站用户名或密码错误，请重新输入。</strong></p>';
         }
-        echo '<p>请输入您在<strong>本站</strong>的用户名和密码</p>';
+        echo '<p>请输入您在<strong>乐学网(CMS)</strong>的用户名和密码</p>';
         echo '<form method=post>';
         echo "用户名：<input type='text' name='lname' value='$localusername' />";
         echo "密码：<input type='password' name='lpass' value='$localpassword' />";
@@ -91,7 +91,7 @@
         }
 
         if (update_record('user', $newuser)) {
-            echo '<p>已成功绑定帐号。以后将只能使用CAS登录。</p>';
+            echo '<p><strong>已成功绑定帐号。以后将只能使用CAS登录。</strong></p>';
         } else {
             print_object($newuser);
             die('<p>数据库更新出错。请将此页信息全文拷贝，发送给<a href="mailto:'.$CONTACT_EMAIL.'">'.$CONTACT_EMAIL.'</a>，他会尽力提供帮助</p>');
