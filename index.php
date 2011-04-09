@@ -55,6 +55,7 @@
     if (!$emailauth->user_login($localusername.$USERNAME_SUFFIX, $localpassword)) {
         if (!empty($localusername)) {
             echo '<p><strong>您输入的本站用户名或密码错误，请重新输入。</strong></p>';
+            echo '<p><strong>注意：</strong>这里的用户名不需要添加.local后缀。如果忘记密码，请点击<a href="/login/forgot_password.php">找回密码</a>。</p>';
         }
         echo '<p>请输入您在<strong>乐学网(CMS)</strong>的用户名和密码</p>';
         echo '<form method=post>';
